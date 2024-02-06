@@ -1,3 +1,5 @@
+import ComponentsList from "@/components/galsenUiComponents/ComponentsList";
+
 export default function Home() {
   return (
     <main className="">
@@ -5,7 +7,7 @@ export default function Home() {
         <h1 className="mx-auto max-w-2xl text-4xl font-extrabold leading-none sm:text-5xl">
           Découvrez des composants UI époustouflants
         </h1>
-        <p className="mx-auto max-w-lg text-neutral-500">
+        <p className="mx-auto max-w-xl text-neutral-500">
           Explorez notre vaste bibliothèque de composants UI magnifiquement
           conçus pour vous.
         </p>
@@ -13,6 +15,7 @@ export default function Home() {
           Explorer
         </button>
       </section>
+      <ComponentsList />
     </main>
   );
 }
