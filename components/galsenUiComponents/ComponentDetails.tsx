@@ -22,6 +22,7 @@ const ComponentDetails = ({ file, category }: PropsType) => {
   });
 
   async function fetchUiComponent() {
+    // TODO: before fetching the code, we should first check if we want to display `CSS` or `Tailwind` styles
     const res = await fetch(`/ui/${category}/${file}`);
     setCode(await res.text());
   }
@@ -106,7 +107,10 @@ const TabCode = ({ code }: { code: string }) => {
 const SelectStyle = () => {
   return (
     <div className="">
-      <select name="style-select" className="h-12 w-32 pl-3">
+      <select
+        name="style-select"
+        className="mt-1.5 rounded-lg border-gray-300 text-gray-700 sm:text-sm"
+      >
         <option value="css">CSS</option>
         <option value="tailwind">Tailwind</option>
       </select>
