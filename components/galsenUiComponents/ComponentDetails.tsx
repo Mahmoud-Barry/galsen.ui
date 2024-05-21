@@ -13,7 +13,7 @@ type PropsType = {
 };
 
 const ComponentDetails = ({ file, category }: PropsType) => {
-  const [tab, setTab] = useState<"preview" | "code">("preview");
+  const [tab, setTab] = useState<"preview" | "code">("code");
 
   const [code, setCode] = useState<string | undefined>("");
   useEffect(() => {
@@ -51,6 +51,8 @@ const ComponentDetails = ({ file, category }: PropsType) => {
           Code
         </button>
       </div>
+
+      {tab === "code" ? <SelectStyle /> : null}
 
       <div
         className={`col-span-full h-[600px] ${tab === "code" ? "overflow-x-hidden" : ""}`}
@@ -98,6 +100,17 @@ const TabCode = ({ code }: { code: string }) => {
     <pre className="w-full h-full !m-0">
       <code className={prismClass}>{code}</code>
     </pre>
+  );
+};
+
+const SelectStyle = () => {
+  return (
+    <div className="">
+      <select name="style-select" className="h-12 w-32 pl-3">
+        <option value="css">CSS</option>
+        <option value="tailwind">Tailwind</option>
+      </select>
+    </div>
   );
 };
 

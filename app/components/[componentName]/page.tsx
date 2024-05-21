@@ -20,7 +20,7 @@ export default async function Page({ params }: PageProps) {
   try {
     files = await fs.readdir(
       process.cwd() + `/public/ui/${params.componentName}/`,
-      "utf8"
+      "utf8",
     );
   } catch (error) {
     return (
@@ -37,8 +37,8 @@ export default async function Page({ params }: PageProps) {
   // Now we can read the content inside the component description file
   const componentDescription = await fs.readFile(
     process.cwd() +
-    `/public/ui/${params.componentName}/${componentDescriptionFile}`,
-    "utf8"
+      `/public/ui/${params.componentName}/${componentDescriptionFile}`,
+    "utf8",
   );
 
   return (
