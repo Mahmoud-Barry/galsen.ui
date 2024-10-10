@@ -34,38 +34,40 @@ const ComponentDetails = ({ file, category }: PropsType) => {
       </h2>
       <div className="p-1 bg-neutral-100 rounded w-fit justify-self-end">
         <button
-          onClick={() => setTab("preview")}
-          type="button"
-          className={`py-2 px-3 rounded ${
-            tab === "preview" ? "bg-neutral-200" : "bg-transparent"
-          }`}
-        >
-          Aperçu
-        </button>
-        <button
           onClick={() => setTab("code")}
           type="button"
           className={`py-2 px-3 rounded ${
             tab === "code" ? "bg-neutral-200" : "bg-transparent"
           }`}
         >
+          Aperçu
+        </button>
+        <button
+          onClick={() => setTab("preview")}
+          type="button"
+          className={`py-2 px-3 rounded ${
+            tab === "preview" ? "bg-neutral-200" : "bg-transparent"
+          }`}
+        >
           Code
         </button>
       </div>
 
-      {tab === "code" ? <SelectStyle /> : null}
+      {/* {tab === "code" ? <SelectStyle /> : null} */}
 
       <div
-        className={`col-span-full h-[600px] ${tab === "code" ? "overflow-x-hidden" : ""}`}
+        className={`col-span-full h-[600px] ${
+          tab === "preview" ? "overflow-x-hidden" : ""
+        }`}
       >
         {tab === "preview" ? (
-          <article className="w-full h-full">
-            {code ? <TabPreview code={code} /> : <p>Loading...</p>}
-          </article>
-        ) : (
           <div className="overflow-hidden h-full g-gray-800 ext-gray-100 rounded-lg">
             {code ? <TabCode code={code} /> : <p>Loading...</p>}
           </div>
+        ) : (
+          <article className="w-full h-full">
+            {code ? <TabPreview code={code} /> : <p>Loading...</p>}
+          </article>
         )}
       </div>
     </article>
