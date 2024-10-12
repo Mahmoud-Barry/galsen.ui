@@ -4,6 +4,9 @@ import ErrorMessage from "@/components/Error/ErrorMessage";
 import ComponentDetails from "@/components/galsenUiComponents/ComponentDetails";
 
 import { promises as fs } from "fs";
+import { serialize } from 'next-mdx-remote/serialize'
+import RemoteMdxWrapper from "@/components/Mdx/RemoteMdxWrapper";
+
 
 type PageProps = {
   params: { componentName: string };
@@ -24,22 +27,43 @@ export default async function Page({ params }: PageProps) {
     );
   } catch (error) {
     return (
-      <ErrorMessage message="Veuillez verifier si cette catégorie de composants existe" />
+      <ErrorMessage message="Veuillez vérifier si cette catégorie de composants existe." />
     );
   }
 
-  // Get only html files so that we can display the code
+  //! Get only html files so that we can display the code
   const htmlFiles = files.filter((file) => file.endsWith(".html"));
 
-  // The description of each component is located in a file with ".txt" extension
-  const componentDescriptionFile = files.find((file) => file.endsWith(".txt"));
+  //! Get only the .mdx files so that we can display the component description
+  const mdxFiles = files.filter((file) => file.endsWith(".mdx"));
 
+  if (mdxFiles.length === 0) {
+    return (
+      <ErrorMessage message="Aucun description trouvée pour ce composant." />
+    );
+  }
+
+  //! Get the first .mdx file (or handle the case for multiple .mdx files)
+  const componentDescriptionFile = mdxFiles[0]; // or whatever logic you prefer
+
+  // The description of each component is located in a file with ".txt" extension
+  // const componentDescriptionFile = files.find((file) => file.endsWith(".mdx")) as string;
   // Now we can read the content inside the component description file
+  // const componentDescription = await fs.readFile(
+  //   process.cwd() +
+  //   `/public/ui/${params.componentName}/${componentDescriptionFile}`,
+  //   "utf8",
+  // );
+
+  
+  //! Read the content inside the component description file
   const componentDescription = await fs.readFile(
-    process.cwd() +
-      `/public/ui/${params.componentName}/${componentDescriptionFile}`,
-    "utf8",
+    process.cwd() + `/public/ui/${params.componentName}/${componentDescriptionFile}`,
+    "utf8"
   );
+
+  // Serialize the MDX content
+  const mdxSource = await serialize(componentDescription);
 
   return (
     <main className="">
@@ -47,13 +71,11 @@ export default async function Page({ params }: PageProps) {
         <h1 className="text-2xl font-bold capitalize">
           {params.componentName}
         </h1>
-        <p className="text-neutral-500">{componentDescription}</p>
-
+        <RemoteMdxWrapper mdxSource={mdxSource} />
         <div className="mt-16 space-y-12">
           {htmlFiles.length ? (
             htmlFiles.map((file: string) => (
               <ComponentDetails
-                title="Bouton Simple"
                 key={file}
                 category={params.componentName}
                 file={file}
