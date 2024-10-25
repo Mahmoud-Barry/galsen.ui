@@ -9,27 +9,19 @@ async function getComponents() {
   const galsenUiComponentsPath = path.join(process.cwd(), "/src/data/components");
 
   const galsenUiComponentsFiles = await fs.readdir(galsenUiComponentsPath)
-  // console.log({ galsenUiComponentsFiles });
 
   const components = await Promise.all(
     galsenUiComponentsFiles.map(async (file) => {
       const galsenUiComponentPath = path.join(galsenUiComponentsPath, file);
-      // console.log({ galsenUiComponentPath });
+
       const galsenUiComponentMdxContent = await fs.readFile(galsenUiComponentPath, 'utf8');
       const { frontmatter: galsenUiComponentSerializedContent } = await serialize<string, GalsenUiComponentGroup>(galsenUiComponentMdxContent, { parseFrontmatter: true })
-      // galsenUiComponentSerializedContent
-      // console.log({ galsenUiComponentSerializedContent });
+
       const galsenUiGroupComponentsCount = Object.values(galsenUiComponentSerializedContent.components).length
-
-      // console.log({ galsenUiComponentSerializedContent, count: galsenUiGroupComponentsCount });
-
 
       return { ...galsenUiComponentSerializedContent, count: galsenUiGroupComponentsCount, slug: file.replace("galsen-ui-", "").replace(".mdx", "") };
     })
   )
-
-  // console.log({ components });
-
 
   return components as unknown as GalsenUiComponentGroup[];
 }
@@ -47,10 +39,6 @@ export default async function Home() {
           Explorez notre vaste bibliothèque de composants UI magnifiquement
           conçus pour vous.
         </p>
-
-        {/* <button className="bg-gray-900 text-lg font-medium text-gray-50 px-8 py-4 leading-none rounded-md"> */}
-        {/*   Explorer */}
-        {/* </button> */}
       </section>
 
       <div className="sm:max-w-7xl sm:mx-auto mt-10 px-4">

@@ -29,7 +29,7 @@ export default async function Page({ params }: PageProps) {
   const mdxScope = {
     files: componentHTMLFiles,
     componentSlug: params.componentName,
-    titles: mdxSource.frontmatter.components
+    components: mdxSource.frontmatter.components
   }
 
   return (
