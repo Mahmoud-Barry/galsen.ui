@@ -4,70 +4,50 @@ import { useEffect, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { componentPreviewHtml } from "@/utils/transformers";
 import Prism from "prismjs";
-import { removeExtension } from "@/utils";
 require("prismjs/components/prism-cshtml");
 
-type PropsType = {
-  file: string;
-  category: string;
-};
+const ComponentDetails = ({ code, title }: { title: string; code: string }) => {
+  const [tab, setTab] = useState<"preview" | "code">("preview");
 
-const ComponentDetails = ({ file, category }: PropsType) => {
-  const [tab, setTab] = useState<"preview" | "code">("code");
-
-  const [code, setCode] = useState<string | undefined>("");
   useEffect(() => {
     Prism.highlightAll();
-    fetchUiComponent();
   });
 
-  async function fetchUiComponent() {
-    // TODO: before fetching the code, we should first check if we want to display `CSS` or `Tailwind` styles
-    const res = await fetch(`/ui/${category}/${file}`);
-    setCode(await res.text());
-  }
-
   return (
-    <article className="w-full grid grid-cols-[auto_auto] gap-y-4 items-center">
-      <h2 className="text-neutral-700">
-        {removeExtension(".html", file).toUpperCase()}
+    <article className="w-full grid grid-cols-1 md:grid-cols-[1fr_auto] gap-y-6 items-center">
+      <h2 className="text-neutral-700 w-[500px] truncate">
+        {title}
       </h2>
-      <div className="p-1 bg-neutral-100 rounded w-fit justify-self-end">
+
+      <div className="p-1.5 bg-blue-50 text-blue-900 font-medium rounded w-fit">
         <button
           onClick={() => setTab("code")}
           type="button"
-          className={`py-2 px-3 rounded ${
-            tab === "code" ? "bg-neutral-200" : "bg-transparent"
-          }`}
+          className={`py-2 px-3 rounded ${tab === "preview" ? "bg-blue-500 text-white" : ""}`}
         >
           Aperçu
         </button>
         <button
           onClick={() => setTab("preview")}
           type="button"
-          className={`py-2 px-3 rounded ${
-            tab === "preview" ? "bg-neutral-200" : "bg-transparent"
-          }`}
+          className={`py-2 px-3 rounded ${tab === "code" ? "bg-blue-500 text-white" : ""}`}
         >
           Code
         </button>
       </div>
 
-      {/* {tab === "code" ? <SelectStyle /> : null} */}
-
       <div
-        className={`col-span-full h-[600px] ${
-          tab === "preview" ? "overflow-x-hidden" : ""
-        }`}
+        className={`col-span-full h-[600px] ${tab === "preview" ? "overflow-x-hidden" : ""
+          }`}
       >
         {tab === "preview" ? (
-          <div className="overflow-hidden h-full g-gray-800 ext-gray-100 rounded-lg">
-            {code ? <TabCode code={code} /> : <p>Loading...</p>}
-          </div>
-        ) : (
           <article className="w-full h-full">
             {code ? <TabPreview code={code} /> : <p>Loading...</p>}
           </article>
+        ) : (
+          <div className="overflow-hidden h-full bg-red-500 rounded-lg">
+            {code ? <TabCode code={code} /> : <p>Loading...</p>}
+          </div>
         )}
       </div>
     </article>
@@ -84,8 +64,8 @@ const TabPreview = ({ code }: { code: string }) => {
         <div className="pr-3 pl-5 py-10 w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
           <iframe
             className="w-full h-full flex items-center justify-center"
-            srcDoc={componentPreviewHtml(code)}
-          ></iframe>
+            srcDoc={componentPreviewHtml(code)}>
+          </iframe>
         </div>
       </Panel>
       <PanelResizeHandle className="w-2 h-16 rounded-full bg-gray-300 translate-x-4 translate-y-[230px] hidden md:block" />
@@ -96,16 +76,16 @@ const TabPreview = ({ code }: { code: string }) => {
 
 const TabCode = ({ code }: { code: string }) => {
   // TODO: Do we need to change the language?
-  const [prismClass, setPrismClass] = useState("language-html");
+  // const [prismClass, setPrismClass] = useState("language-html");
 
   return (
-    // TODO: prismJS applies some margin and I don't want that
-    <pre className="w-full h-full !m-0">
-      <code className={prismClass}>{code}</code>
+    <pre className="w-full h-full !m-0 overflow-auto">
+      <code className="language-html">{code}</code>
     </pre>
   );
 };
 
+// TODO: implement this later
 const SelectStyle = () => {
   return (
     <div className="">
