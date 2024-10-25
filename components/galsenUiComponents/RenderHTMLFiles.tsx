@@ -3,11 +3,13 @@ import React from 'react'
 import PostPreview from './PostPreview'
 
 function removeHTMLExtension(file: string) {
-  return file.split('.html').shift()
+  return file.split('.html').shift();
 }
 
 // PERF: use better names for these props (specially `titles`)
-const RenderHTMLFiles = ({ files, componentSlug, titles }: { titles: string[]; files: string[], componentSlug: string }) => {
+const RenderHTMLFiles = ({ files, componentSlug, titles }: { titles: Record<number, { title: string }>; files: string[], componentSlug: string }) => {
+  console.log({ titles });
+
   return (
     <div className="mt-8 space-y-12">
       {files.map((file) => {
