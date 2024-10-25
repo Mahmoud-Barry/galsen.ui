@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import { serialize } from 'next-mdx-remote/serialize'
 import RemoteMdxWrapper from "@/components/Mdx/RemoteMdxWrapper";
 import RenderHTMLFiles from '@/components/galsenUiComponents/RenderHTMLFiles';
+import H1 from "@/components/Mdx/H1";
 
 
 type PageProps = {
@@ -39,7 +40,10 @@ export default async function Page({ params }: PageProps) {
         <RemoteMdxWrapper
           mdxSource={mdxSource}
           mdxScope={mdxScope}
-          mdxComponents={{ RenderHTMLFiles }} />
+          mdxComponents={{
+            h1: H1,
+            RenderHTMLFiles
+          }} />
       </section>
     </main>
   );
