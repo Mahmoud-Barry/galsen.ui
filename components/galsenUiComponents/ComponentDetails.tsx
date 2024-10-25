@@ -21,14 +21,14 @@ const ComponentDetails = ({ code, title }: { title: string; code: string }) => {
 
       <div className="p-1.5 bg-blue-50 text-blue-900 font-medium rounded w-fit">
         <button
-          onClick={() => setTab("code")}
+          onClick={() => setTab("preview")}
           type="button"
           className={`py-2 px-3 rounded ${tab === "preview" ? "bg-blue-500 text-white" : ""}`}
         >
           Aperçu
         </button>
         <button
-          onClick={() => setTab("preview")}
+          onClick={() => setTab("code")}
           type="button"
           className={`py-2 px-3 rounded ${tab === "code" ? "bg-blue-500 text-white" : ""}`}
         >
