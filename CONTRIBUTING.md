@@ -14,7 +14,7 @@ Voici les étapes à suivre pour ajouter des composants :
 
 4. **Commitez vos changements et poussez vos modifications**.
 
-5. **Créez une pull request**.
+5. **Créez une pull request vers la branche dev**.
 
 6. **Attendez que la pull request soit mergé**.
 
