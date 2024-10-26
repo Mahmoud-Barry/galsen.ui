@@ -15,30 +15,33 @@ const ComponentDetails = ({ code, title }: { title: string; code: string }) => {
 
   return (
     <article className="w-full grid grid-cols-1 md:grid-cols-[1fr_auto] gap-y-6 items-center">
-      <h2 className="text-neutral-700 w-[500px] truncate">
-        {title}
-      </h2>
+      <h2 className="text-neutral-700 w-[500px] truncate">{title}</h2>
 
       <div className="p-1.5 bg-blue-50 text-blue-900 font-medium rounded w-fit">
         <button
           onClick={() => setTab("preview")}
           type="button"
-          className={`py-2 px-3 rounded ${tab === "preview" ? "bg-blue-500 text-white" : ""}`}
+          className={`py-2 px-3 rounded ${
+            tab === "preview" ? "bg-blue-500 text-white" : ""
+          }`}
         >
           Aperçu
         </button>
         <button
           onClick={() => setTab("code")}
           type="button"
-          className={`py-2 px-3 rounded ${tab === "code" ? "bg-blue-500 text-white" : ""}`}
+          className={`py-2 px-3 rounded ${
+            tab === "code" ? "bg-blue-500 text-white" : ""
+          }`}
         >
           Code
         </button>
       </div>
 
       <div
-        className={`col-span-full h-[600px] ${tab === "preview" ? "overflow-x-hidden" : ""
-          }`}
+        className={`col-span-full h-[600px] ${
+          tab === "preview" ? "overflow-x-hidden" : ""
+        }`}
       >
         {tab === "preview" ? (
           <article className="w-full h-full">
@@ -64,8 +67,8 @@ const TabPreview = ({ code }: { code: string }) => {
         <div className="pr-3 pl-5 py-10 w-full h-full flex items-center justify-center bg-gray-100 rounded-lg">
           <iframe
             className="w-full h-full flex items-center justify-center"
-            srcDoc={componentPreviewHtml(code)}>
-          </iframe>
+            srcDoc={componentPreviewHtml(code)}
+          ></iframe>
         </div>
       </Panel>
       <PanelResizeHandle className="w-2 h-16 rounded-full bg-gray-300 translate-x-4 translate-y-[230px] hidden md:block" />
@@ -75,13 +78,27 @@ const TabPreview = ({ code }: { code: string }) => {
 };
 
 const TabCode = ({ code }: { code: string }) => {
-  // TODO: Do we need to change the language?
-  // const [prismClass, setPrismClass] = useState("language-html");
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
-    <pre className="w-full h-full !m-0 overflow-auto">
-      <code className="language-html">{code}</code>
-    </pre>
+    <div className="relative w-full h-full">
+      <button
+        onClick={copyToClipboard}
+        className="absolute top-2 right-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded"
+      >
+        {copied ? "Copié !" : "Copier "}
+      </button>
+      <pre className="w-full h-full !m-0 overflow-auto">
+        <code className="language-html">{code}</code>
+      </pre>
+    </div>
   );
 };
 
