@@ -6,7 +6,7 @@ Voici les étapes à suivre pour ajouter des composants :
 
 ## Étape 1: Comment faire pour contribuer
 
-1. **[Fork le projet](https://github.com/GalsenDev221/galsen.ui.git/fork)**.
+1. **[Fork le projet](https://github.com/GalsenDev221/galsen.ui.git)**.
 
 2. **Clonez votre fork**.
 
