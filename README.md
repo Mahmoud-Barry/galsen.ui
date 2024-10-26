@@ -5,6 +5,10 @@ Ce projet vient renforcer les projets et activités de la communauté Galsen Dev
 
 Consulter le fichier [CONTRIBUTING.md](CONTRIBUTING) pour contribuer.
 
+## Prérequis
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
+- Node.js (Version 20.x ou supérieure recommandée) : Télécharger Node.js
+
 ## Installation
 
 1. **Cloner le dépôt** :
