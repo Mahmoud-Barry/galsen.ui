@@ -93,7 +93,7 @@ const TabCode = ({ code }: { code: string }) => {
         onClick={copyToClipboard}
         className="absolute top-2 right-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded"
       >
-        {copied ? "Copié !" : "Copier"}
+        {copied ? "Copié !" : "Copier "}
       </button>
       <pre className="w-full h-full !m-0 overflow-auto">
         <code className="language-html">{code}</code>
