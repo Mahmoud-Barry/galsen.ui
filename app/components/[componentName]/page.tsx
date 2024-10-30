@@ -5,6 +5,7 @@ import RemoteMdxWrapper from "@/components/Mdx/RemoteMdxWrapper";
 import RenderHTMLFiles from "@/components/galsenUiComponents/RenderHTMLFiles";
 import H1 from "@/components/Mdx/H1";
 import ErrorMessage from "@/components/Error/ErrorMessage";
+import Link from "next/link";
 
 type PageProps = {
   params: { componentName: string };
