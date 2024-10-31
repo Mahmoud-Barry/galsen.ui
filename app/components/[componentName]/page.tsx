@@ -45,6 +45,11 @@ export default async function Page({ params }: PageProps) {
   return (
     <main className="">
       <section className="px-4 py-16 sm:max-w-7xl sm:mx-auto">
+        <Link href="/" passHref>
+          <button className="py-2 px-4 mb-3 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Back to Home
+          </button>
+        </Link>
         <RemoteMdxWrapper
           mdxSource={mdxSource}
           mdxScope={mdxScope}
