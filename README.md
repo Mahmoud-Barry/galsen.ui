@@ -13,10 +13,6 @@ Ce projet vient renforcer les projets et activités de la communauté Galsen Dev
 
 ![Made-In-Senegal](./public/svgs/madeinsenegal.svg)
 
-```bash
-[![Made-In-Senegal](https://github.com/GalsenDev221/made.in.senegal/blob/master/assets/badge.svg)]
-```
-
 🚧 Si vous souhaitez contribuer à ce projet, veuillez lire **[CONTRIBUTING.md](../CONTRIBUTING.md)** d'abord !
 
 ---
